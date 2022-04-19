@@ -1,53 +1,96 @@
 import edu.princeton.cs.algs4.RedBlackBST;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Calendar;
 
 public class App {
     public static void main(String[] args) throws Exception {
         RedBlackBST redBlackBST = new RedBlackBST<>();
-        Stack stack = new Stack<>();
 
-        Scanner s = new Scanner(System.in);
-        int n = s.nextInt();
-        int m = s.nextInt();
+        redBlackBST.put("09:00:00", "Chicago");
+        redBlackBST.put("09:00:03", "Phoenix");
+        redBlackBST.put("09:00:13", "Houston");
+        redBlackBST.put("09:00:59", "Chicago");
+        redBlackBST.put("09:01:10", "Houston");
+        redBlackBST.put("09:03:13", "Chicago");
+        redBlackBST.put("09:10:11", "Seattle");
+        redBlackBST.put("09:10:25", "Seattle");
+        redBlackBST.put("09:14:25", "Phoenix");
 
-        int i = 1;
+        // reroute(redBlackBST, "09:00:00", "Copenhagen");
+        // cancel(redBlackBST, "09:00:00");
+        // destination(redBlackBST, "09:00:00");
 
-        // For testing ...
-        // String x = "09:00:00 Chicago";
-        // String[] sepLine2 = x.split(" ");
-        // System.out.println(Integer.parseInt(sepLine2[0]));
-        // System.out.println(sepLine2[1]);
+        // Expected 09:00:24 - works
+        changeTime("09:00:00", 24);
 
-        while (i < (n + 1)) {
-            var line = s.nextLine();
-            String[] sepLine = s.nextLine().split("\\s+");
-            redBlackBST.put((sepLine[0]), sepLine[1]);
-            i++;
-        }
+        // Expected 09:01:23
+        changeTime("09:00:00", 83);
 
-        int j = 1;
-        while (j < (m + 1)) {
-            stack.add(s.nextLine());
-            j++;
-        }
-        s.close();
+        // Expected 10:14:25
+        changeTime("09:14:25", 3600);
     }
 
-    // 14 10
-    // 09:00:00 Chicago
-    // 09:00:03 Phoenix
-    // 09:00:13 Houston
-    // 09:00:59 Chicago
-    // 09:01:10 Houston
-    // 09:03:13 Chicago
-    // 09:10:11 Seattle
-    // 09:10:25 Seattle
-    // 09:14:25 Phoenix
-    // 09:19:32 Chicago
-    // 09:19:46 Chicago
-    // 09:21:05 Chicago
-    // 09:22:43 Seattle
-    // 09:22:54 Seattle
+    // Works
+    public static void cancel(RedBlackBST redBlackBST, String s) {
+        redBlackBST.delete(s);
+    }
+
+    // TODO
+    public static void delay(RedBlackBST redBlackBST, String s) {
+        redBlackBST.delete(s);
+    }
+
+    // Works
+    public static void reroute(RedBlackBST redBlackBST, String s, String c) {
+        redBlackBST.put(s, c);
+    }
+
+    // Works
+    public static void destination(RedBlackBST redBlackBST, String s) {
+        System.out.println(redBlackBST.get(s));
+    }
+
+    // Helper function that should be able to convert increase and decrease time
+    public static void changeTime(String time, int delayInSeconds) {
+
+        // Seperate by :
+        String[] timeSplitted = time.split(":");
+        // Convert into int
+        int hours = Integer.parseInt(timeSplitted[0]);
+        int minutes = Integer.parseInt(timeSplitted[1]);
+        int seconds = Integer.parseInt(timeSplitted[2]);
+
+        seconds += delayInSeconds;
+
+        // // Do calculation
+        if (seconds >= 60) {
+            minutes += (seconds / 60);
+            seconds = seconds - 60;
+        }
+        if (minutes >= 60) {
+            hours += (minutes / 60);
+            minutes = minutes - 60;
+        }
+        if (hours >= 24) {
+            hours = 0;
+        }
+
+        String secondsOutput = String.valueOf(seconds);
+        if (secondsOutput.length() == 1)
+            secondsOutput = "0" + seconds;
+
+        String minutesOutput = String.valueOf(minutes);
+        if (minutesOutput.length() == 1)
+            minutesOutput = "0" + minutes;
+
+        String hoursOutput = String.valueOf(hours);
+        if (hoursOutput.length() == 1)
+            hoursOutput = "0" + hours;
+
+        // Convert into string again
+        String output = hoursOutput + ":" + minutesOutput + ":" + secondsOutput;
+        System.out.println(output);
+    }
 
 }
