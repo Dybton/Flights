@@ -21,8 +21,6 @@ public class Clock {
         }
         if (this.hours >= 24) {
             this.hours = hours - ((hours / 24) * 24);
-            // this.hours += (minutes / 60);
-            // this.minutes = minutes - ((minutes / 60) * 60);
         }
     }
 
