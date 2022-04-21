@@ -15,9 +15,8 @@ public class App {
         boolean debugNext = false;
         boolean debugCount = false;
 
-        // Used for debugging
         ArrayList arr = new ArrayList<String>();
-        ArrayList arr2 = new ArrayList<String>();
+        ArrayList arr2 = new ArrayList<String>(); // Used for debugging
 
         RedBlackBST redBlackBST = new RedBlackBST<>();
 
@@ -45,7 +44,15 @@ public class App {
 
         scanner.close();
 
-        // Light test cases
+        // Run the operations ()
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i) == null)
+                System.out.println("-");
+            else
+                System.out.println(arr.get(i));
+        }
+
+        // Test cases
         if (debugScannerFlights) {
             // Expected
             // 09:00:00 Chicago
@@ -97,27 +104,8 @@ public class App {
             // Expected 6 - works
             System.out.println(count(redBlackBST, "09:00:00", "09:03:13"));
         }
-        if (debugFinal) {
-            // Phoenix
-            // -
-            // Phoenix
-            // -
-            // -
-            // Chicago
-            // Houston
-            System.out.println("------------------");
-            for (int i = 0; i < arr.size(); i++) {
-                if (arr.get(i) == null)
-                    // Note we need to move the "-" somewhere else
-                    System.out.println("-");
-                else
-                    System.out.println(arr.get(i));
-            }
-            System.out.println("------------------");
-        }
     }
 
-    // Works
     public static void cancel(RedBlackBST redBlackBST, String s) {
         redBlackBST.delete(s);
     }
