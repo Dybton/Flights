@@ -11,7 +11,6 @@ public class App {
         boolean debugDelay = false;
         boolean debugDestination = false;
         boolean debugReroute = false;
-        boolean debugFinal = true;
         boolean debugNext = false;
         boolean debugCount = false;
 
@@ -52,7 +51,7 @@ public class App {
                 System.out.println(arr.get(i));
         }
 
-        // Test cases
+        // Test cases start
         if (debugScannerFlights) {
             // Expected
             // 09:00:00 Chicago
@@ -104,6 +103,7 @@ public class App {
             // Expected 6 - works
             System.out.println(count(redBlackBST, "09:00:00", "09:03:13"));
         }
+        // Test cases end
     }
 
     public static void cancel(RedBlackBST redBlackBST, String s) {
